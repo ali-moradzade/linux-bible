@@ -3,7 +3,7 @@
 
 # Check if either a directory or file exists
 
-location=$HOME
+location=$HOME/works/linux-bible/test
 file_name="sentinel"
 
 if [ -e $location ]
@@ -16,6 +16,10 @@ then # Directory does exist
 		echo "OK on the $file_name"
 		echo "Updating Current Date ..."
 		date >> $location/$file_name
+
+		echo
+		echo "$file_name content:"
+		cat $location/$file_name
 
 	else # File does not exist
 		echo "File does not exist"
