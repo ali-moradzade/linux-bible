@@ -1,0 +1,16 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2021/12/30
+#=======================
+
+count=1
+for f in *
+do
+	if [[ $f =~ [01][1-9]* ]]
+	then
+		echo "$f"
+		mv -iv "$f" "$(printf "script%02d%s" $count ${f:8})"
+		((count++))
+	fi
+done
