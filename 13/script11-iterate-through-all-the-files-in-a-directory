@@ -1,0 +1,18 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2021/12/30
+#=======================
+
+# iterate through all the files in a directory
+
+for file in /home/ali/works/linux-bible/13/*
+do
+	if [ -d "$file" ]
+	then
+		echo "$file is a directory"
+	elif [ -f "$file" ]
+	then
+		echo "$file is a file"
+	fi
+done

@@ -1,0 +1,16 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2021/12/30
+#=======================
+
+# concatenate two variables
+v1=Hello
+v2=World
+v3=$v1" "$v2
+
+echo $v3
+
+v1="Another Hello"
+v1=$v1" World!"
+echo $v1

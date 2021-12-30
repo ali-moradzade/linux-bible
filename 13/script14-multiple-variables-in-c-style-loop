@@ -1,0 +1,11 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2021/12/30
+#=======================
+
+# multiple variables
+for ((a = 1, b = 10; a <= 10; a++, b--))
+do
+	echo "$a - $b"
+done

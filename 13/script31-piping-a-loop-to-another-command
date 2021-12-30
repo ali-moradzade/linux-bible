@@ -1,0 +1,13 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2021/12/31
+#=======================
+
+# piping a loop to another command
+
+for state in "North Dakota" Connecticut Illinois Alabama Tennessee
+do
+	echo "$state is the next place to go"
+done | sort
+echo "This completes our travels"

@@ -1,0 +1,20 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2021/12/30
+#=======================
+
+# iterating through multiple directories
+
+for file in /home/ali/.b* /home/ali/badtest
+do
+	if [ -d "$file" ]
+	then
+		echo "$file is a directory"
+	elif [ -f "$file" ]
+	then
+		echo "$file is a file"
+	else
+		echo "$file doesn't exist"
+	fi
+done

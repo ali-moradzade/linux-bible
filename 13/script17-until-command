@@ -1,0 +1,13 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2021/12/30
+#=======================
+
+# using the until command
+var=100
+until [ $var -eq 0 ]
+do
+	echo $var
+	((var--))
+done
