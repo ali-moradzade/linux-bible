@@ -1,0 +1,42 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/01
+#=======================
+
+# Link: https://stackoverflow.com/questions/16484887/how-to-duplicate-string-in-bash
+# Link: https://stackoverflow.com/questions/238073/how-to-add-a-progress-bar-to-a-shell-script
+# Link: https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
+
+# show a simple progress bar
+
+BAR_WIDTH=100
+PROGRESS_CHAR="#"
+REMAINING_CHAR="."
+
+GREEN='\033[3;32m'
+NC='\033[0m' # No Color
+
+for ((i = 1; i < $BAR_WIDTH; i++))
+do
+	progress=""
+	while [ ${#progress} -le $i ]
+	do
+		progress="$progress$PROGRESS_CHAR"
+	done
+
+	remaining=""
+	remaining_width=$[ $BAR_WIDTH - ${#progress} ]
+	while [ ${#remaining} -lt $remaining_width ]
+	do
+		remaining="$remaining$REMAINING_CHAR"
+	done
+
+	percentage=$[ $i + 1 ]
+	printf "[$GREEN%s%s$NC] (%d%%)\r" "$progress" "$remaining" "$percentage"
+
+	sleep 0.1
+done
+echo
+echo "Completed (100%)"
+
