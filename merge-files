@@ -1,0 +1,48 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/01
+#=======================
+
+# this script is used to merge all scripts in the given directory to the output file
+
+if [[ "$#" -ne 2 ]]
+then
+	echo "wrong parameters. use: ./script [directory] [output-name]"
+
+else
+	directory="$1"
+	file_name="$2"
+	if [ -f "$file_name" ]
+	then
+		echo "files exists. aborting ..."
+	elif ! [ -d "$directory" ]
+	then
+		echo "no such directory. aborting ..."
+
+	else
+		echo "processing files ..."
+		count=1
+		for file in $directory/*
+		do
+			name=$(basename $file)
+			if [[ "$name" =~ ^script[0-9][0-9]* ]]
+			then
+				if [ $count -ne 1 ]
+				then
+					echo
+				fi
+
+				printf "# ==========================================\n"
+				printf "# $name\n"
+				echo
+
+				cat "$file"
+				printf "# ==========================================\n"
+			fi
+
+			count=$[ $count + 1 ]
+		done >> $file_name
+		echo "process finished. all the scripts are in: $file_name"
+	fi
+fi
