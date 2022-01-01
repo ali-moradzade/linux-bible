@@ -1,0 +1,10 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2021/12/31
+#=======================
+
+# getting number of parameters
+
+echo There were $# parameters supplied.
+

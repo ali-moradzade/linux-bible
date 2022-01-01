@@ -1,0 +1,13 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2021/12/31
+#=======================
+
+# grabbing the last parameter
+
+params=$#
+echo
+echo "The number of parameter(s) is $params"
+echo The last parameter is ${!#}
+echo

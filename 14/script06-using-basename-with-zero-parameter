@@ -1,0 +1,11 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2021/12/31
+#=======================
+
+# Using basename with the $0 parameter
+
+name=$(basename $0)
+echo
+echo The script name is: $name

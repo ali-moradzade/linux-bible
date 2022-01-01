@@ -1,0 +1,8 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2021/12/31
+#=======================
+
+# testing grabbing last parameter
+echo The last parameter was ${$#}

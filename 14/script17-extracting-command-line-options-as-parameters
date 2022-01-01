@@ -1,0 +1,21 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/01
+#=======================
+
+# extracting command line parameters as parameters
+
+while [ -n "$1" ]
+do
+	case "$1" in
+		-a) echo "Found the -a option"
+		;;
+		-b) echo "Found the -b option"
+		;;
+		-c) echo "Found the -c option"
+		;;
+		 *) echo "$1 is not an option"
+	esac
+	shift
+done

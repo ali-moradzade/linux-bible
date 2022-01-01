@@ -1,0 +1,19 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/02
+#=======================
+
+# getting just one character of input
+
+read -n 1 -p "Do you want to continue [Y/n]? " answer
+case $answer in
+	y|Y) echo
+		 echo "fine, continue on ..."
+	;;
+	n|N|*) echo
+		 echo Ok, goodbye
+		 exit
+	;;
+esac
+echo "This is the end of the script"

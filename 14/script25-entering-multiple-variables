@@ -1,0 +1,10 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/02
+#=======================
+
+# entering multiple variables
+
+read -p "Enter your name: " first last
+echo "Checking data for $last, $first ..."

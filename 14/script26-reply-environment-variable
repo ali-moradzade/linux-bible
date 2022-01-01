@@ -1,0 +1,11 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/02
+#=======================
+
+# testing the REPLY Environment variable
+
+read -p "Enter your name: "
+echo
+echo Hello $REPLY, welcome to my program.

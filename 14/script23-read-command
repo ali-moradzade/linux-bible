@@ -1,0 +1,11 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/02
+#=======================
+
+# testing the read command
+
+echo -n "Enter your name: "
+read name
+echo "Hello $name, welcome to my program."

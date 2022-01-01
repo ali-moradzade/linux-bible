@@ -1,0 +1,11 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/02
+#=======================
+
+# testing the read -p option
+
+read -p "Please enter your age: " age
+days=$[ $age * 356 ]
+echo "That make you over $days days old!"

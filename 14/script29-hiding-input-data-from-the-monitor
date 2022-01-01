@@ -1,0 +1,11 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/02
+#=======================
+
+# hiding input data from the monitor
+
+read -s -p "Enter your password: " pass
+echo
+echo "Is your password really $pass? "

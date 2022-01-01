@@ -1,0 +1,15 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/02
+#=======================
+
+# reading data from a file
+file_name="test"
+count=1
+cat $file_name | while read line
+do
+	echo "Line $count: $line"
+	count=$[ $count + 1 ]
+done
+echo "Finished processing the file."
