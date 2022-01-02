@@ -1,6 +1,8 @@
 #!/bin/bash
 # Author: Ali Moradzade
 
+# using brackets for math
+
 var1=100
 var2=50
 var3=45

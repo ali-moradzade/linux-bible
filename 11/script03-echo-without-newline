@@ -1,6 +1,8 @@
 #!/bin/bash
 # Author: Ali Moradzade
 
+# using echo command to print a line without ending newline
+
 echo -n "The time and date are: "
 date
 

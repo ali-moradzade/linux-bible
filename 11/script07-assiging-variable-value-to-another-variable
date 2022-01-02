@@ -2,6 +2,7 @@
 # Author: Ali Moradzade
 
 # assigning a variable value to another variable
+
 value1=10
 value2=value1
 echo The resuling value is $value2

@@ -2,4 +2,4 @@
 # Author: Ali Moradzade
 
 testing=$(date)
-echo "The date and time are: " $testing
+echo "The date and time are:" $testing

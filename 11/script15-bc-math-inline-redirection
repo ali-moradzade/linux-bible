@@ -1,6 +1,8 @@
 #!/bin/bash
 # Author: Ali Moradzade
 
+# bc math, inline redirection
+
 var1=10.46
 var2=43.67
 var3=33.2
