@@ -1,0 +1,70 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/02
+#=======================
+
+# shows a progress bar at the bottom of the page
+
+# Link: https://stackoverflow.com/questions/16484887/how-to-duplicate-string-in-bash
+# Link: https://stackoverflow.com/questions/238073/how-to-add-a-progress-bar-to-a-shell-script
+# Link: https://stackoverflow.com/questions/5947742/how-to-change-the-output-color-of-echo-in-linux
+# Link: https://www.thegeekstuff.com/2011/01/tput-command-examples/
+# Link: https://askubuntu.com/questions/599629/print-output-of-code-in-the-middle-of-the-screen
+
+function cleanup() {
+    ## Restores the screen content
+    tput rmcup
+
+    ## Makes the cursor visible again
+    tput cvvis
+}
+
+## When the program is interrupted, call the cleanup function
+trap "cleanup; exit" SIGHUP SIGINT SIGTERM
+
+## Saves the screen contents
+tput smcup
+
+BAR_WIDTH=$[ $(tput cols) - 10 ]
+PROGRESS_CHAR="#"
+REMAINING_CHAR="."
+
+GREEN='\033[3;32m'
+NC='\033[0m' # No Color
+
+for ((i = 1; i <= 100; i++))
+do
+	progress=""
+	count=$[ $i * $BAR_WIDTH / 100 ]
+	while [ ${#progress} -le $count ]
+	do
+		progress="$progress$PROGRESS_CHAR"
+	done
+
+	remaining=""
+	remaining_width=$[ $BAR_WIDTH - ${#progress} ]
+	while [ ${#remaining} -lt $remaining_width ]
+	do
+		remaining="$remaining$REMAINING_CHAR"
+	done
+
+    ## Gets terminal width and height
+    height=$(tput lines)
+    width=$(tput cols)
+
+    ## Puts the cursor on the middle of the terminal (a bit more to the left, to center the word)
+    tput cup "$((height))" "0"
+	
+    ## Hides the cursor
+    tput civis
+	
+	percentage=$i
+	printf "[$GREEN%s%s$NC] (%d%%)\r" "$progress" "$remaining" "$percentage"
+
+	sleep 0.01
+done
+sleep 2
+
+## When the program ends, call the cleanup function
+cleanup

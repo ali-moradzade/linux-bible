@@ -1,0 +1,61 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/02
+#=======================
+
+# use tput utility
+# Link: https://www.thegeekstuff.com/2011/01/tput-command-examples/
+# Link: https://askubuntu.com/questions/599629/print-output-of-code-in-the-middle-of-the-screen
+
+## When the program is interrupted, call the cleanup function
+trap "cleanup; exit" SIGHUP SIGINT SIGTERM
+
+## Check if file exists
+if ! [ -f "$1" ]
+then
+	echo "file not found. aborting ..."
+	exit
+fi
+
+function cleanup() {
+    ## Restores the screen content
+    tput rmcup
+
+    ## Makes the cursor visible again
+    tput cvvis
+}
+
+## Saves the screen contents
+tput smcup
+
+## Loop over all words
+while read line
+do
+    ## Gets terminal width and height
+    height=$(tput lines)
+    width=$(tput cols)
+
+    ## Gets the length of the current word
+    line_length=${#line}
+
+    ## Clears the screen
+    clear
+
+    ## Puts the cursor on the middle of the terminal (a bit more to the left, to center the word)
+    tput cup "$((height/2))" "$((($width-$line_length)/2))"
+
+    ## Hides the cursor
+    tput civis
+
+    ## Prints the word
+    printf "$line"
+
+    ## Sleeps one second
+    sleep 1
+
+## Passes the words separated by a newline to the loop
+done < <(tr ' ' '\n' < "$1")
+
+## When the program ends, call the cleanup function
+cleanup
