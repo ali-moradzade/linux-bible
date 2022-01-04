@@ -1,0 +1,22 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/04
+#=======================
+
+# Usage: ./script [file-wtih-bad-name]
+
+# convert spaces in file name to dash(-) character
+# note: this script only works for files! (if you want to use for directory change -f to -d, or if you want 
+# 	to use for both files and directories change -f to -e).
+
+# Link: https://www.howtogeek.com/423214/how-to-use-the-rename-command-on-linux/
+# Link: https://unix.stackexchange.com/questions/458839/rename-multiple-files-with-2-conditions-replacements-in-one-line
+
+if [ -f "$1" ]
+then
+	rename 's/ +/-/g; y/A-Z/a-z/' "$1"
+else
+	echo "no such file. aborting ..."
+fi
+
