@@ -1,0 +1,89 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/05
+#=======================
+
+# script to extract bookmars from a pdf file
+
+if [ "$#" -ne 2 ]
+then
+	echo "Usage: ./$(basename $0) [pdf-file] [output-file-name]"
+	exit
+fi
+
+pdf_file=$1
+file_name=$2
+
+if ! [ -f "$pdf_file" ]
+then
+	echo "pdf file doesn't exist. aborting ..."
+else
+	if [ -f "$file_name" ]
+	then
+		read -n1 -p "file $file_name does exist. do you want to overwrite it? (Y/n) "
+		echo
+
+		case $REPLY in
+			y|Y)
+				echo "" > "$file_name"
+				;;
+			*)
+				echo "aborting ..."
+				exit
+			;;
+		esac
+	else
+		touch $file_name
+	fi
+
+	echo "processing $pdf_file ..."
+
+	data=$(pdftk $pdf_file dump_data | grep '^Bookmark') &> /dev/null
+
+	count=0
+	IFS=$'\n'
+	for line in $data
+	do
+		if (( count % 4 == 0 ))
+		then
+			title=null
+			level=-1
+			page=-1
+		fi
+
+		if [[ "$line" =~ "BookmarkTitle" ]]
+		then
+			title=${line:15}
+		fi
+
+		if [[ "$line" =~ "BookmarkLevel" ]]
+		then
+			level=$(echo "$line" | sed 's/[^0-9]*//g')
+		fi
+
+		if [[ "$line" =~ "BookmarkPageNumber" ]]
+		then
+			page=$(echo "$line" | sed 's/[^0-9]*//g')
+		fi
+
+		if [ $title != "null" ] && [ $level -ne -1 ] && [ $page -ne -1 ]
+		then
+			indent=""
+			INDENT="   "
+
+			for ((i = 1; i < $level; i++))
+			do
+				indent="$indent$INDENT"
+			done
+
+			printf "%s%s, %d\n" "$indent" "$title" "$page" >> $file_name
+		fi
+		count=$[ $count + 1 ]
+	done
+
+	echo "done."
+	echo
+
+	echo "Completed. your results are in $file_name."
+fi

@@ -1,0 +1,54 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/05
+#=======================
+
+# script to bookmark each file with its file name
+
+if [ "$#" -ne 2 ]
+then
+	echo "Usage: ./$(basename $0) [pdf-files-directory] [output-file-name]"
+	exit
+fi
+
+files_directory=$1
+file_name=$2
+
+if ! [ -d "$files_directory" ]
+then
+	echo "directory doesn't exist. aborting ..."
+else
+	if [ -f "$file_name" ]
+	then
+		read -n1 -p "file $file_name does exist. do you want to overwrite it? (Y/n) "
+		echo
+
+		case $REPLY in
+			y|Y)
+				echo "" > "$file_name"
+				;;
+			*)
+				echo "aborting ..."
+				exit
+			;;
+		esac
+	else
+		touch $file_name
+	fi
+
+	for f in $files_directory/*
+	do
+		name=$(basename $f)
+		echo "processing $name ..."
+		printf "%-25s, " "${name:3:-4}" >> $file_name
+
+		s=$(pdftk "$f" dump_data output | grep -i NumberOfPages) &>/dev/null
+		printf "%s\n" "${s:15}" >> $file_name
+
+		echo "done."
+		echo
+	done 
+
+	echo "Completed. your results are in $file_name."
+fi
