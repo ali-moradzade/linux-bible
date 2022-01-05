@@ -26,7 +26,7 @@ else
 
 		case $REPLY in
 			y|Y)
-				echo "" > "$file_name"
+				echo -n "" > "$file_name"
 				;;
 			*)
 				echo "aborting ..."
@@ -41,7 +41,7 @@ else
 	do
 		name=$(basename $f)
 		echo "processing $name ..."
-		printf "%-25s, " "${name:3:-4}" >> $file_name
+		printf "%-25s, " "${name::-4}" >> $file_name
 
 		s=$(pdftk "$f" dump_data output | grep -i NumberOfPages) &>/dev/null
 		printf "%s\n" "${s:15}" >> $file_name

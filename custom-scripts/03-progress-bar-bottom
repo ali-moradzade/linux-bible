@@ -26,7 +26,7 @@ trap "cleanup; exit" SIGHUP SIGINT SIGTERM
 ## Saves the screen contents
 tput smcup
 
-BAR_WIDTH=$[ $(tput cols) - 10 ]
+BAR_WIDTH=$[ $(tput cols) - 11 ]
 PROGRESS_CHAR="#"
 REMAINING_CHAR="."
 
@@ -64,7 +64,7 @@ do
 
 	sleep 0.01
 done
-sleep 2
+sleep 1
 
 ## When the program ends, call the cleanup function
 cleanup

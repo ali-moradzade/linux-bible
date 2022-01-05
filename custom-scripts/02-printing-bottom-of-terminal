@@ -11,6 +11,13 @@
 ## When the program is interrupted, call the cleanup function
 trap "cleanup; exit" SIGHUP SIGINT SIGTERM
 
+if [ "$#" -ne 1 ]
+then
+	echo "Usage: $(basename $0) [read-from-file]"
+	echo "display the content of a file one word at a time, in the middle of screen"
+	exit
+fi
+
 ## Check if file exists
 if ! [ -f "$1" ]
 then
