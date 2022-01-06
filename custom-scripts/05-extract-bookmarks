@@ -26,7 +26,7 @@ else
 
 		case $REPLY in
 			y|Y)
-				echo "" > "$file_name"
+				echo -n "" > "$file_name"
 				;;
 			*)
 				echo "aborting ..."
@@ -38,10 +38,8 @@ else
 	fi
 
 	echo "processing $pdf_file ..."
-
 	data=$(pdftk $pdf_file dump_data | grep '^Bookmark') &> /dev/null
 
-	count=0
 	IFS=$'\n'
 	for line in $data
 	do
@@ -69,21 +67,20 @@ else
 
 		if [ $title != "null" ] && [ $level -ne -1 ] && [ $page -ne -1 ]
 		then
-			indent=""
 			INDENT="   "
+			indent=""
 
-			for ((i = 1; i < $level; i++))
+			for ((i = 1; i <= $level; i++))
 			do
 				indent="$indent$INDENT"
 			done
-
+			
 			printf "%s%s, %d\n" "$indent" "$title" "$page" >> $file_name
+
 		fi
 		count=$[ $count + 1 ]
 	done
 
-	echo "done."
-	echo
-
-	echo "Completed. your results are in $file_name."
+	echo "Process finished successfully."
+	echo "your results are in $file_name."
 fi
