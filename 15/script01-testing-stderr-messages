@@ -1,0 +1,10 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/03
+#=======================
+
+# testing STDERR messages
+
+echo "This is an error" >&2
+echo "This is normal output"

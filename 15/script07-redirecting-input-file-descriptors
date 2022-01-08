@@ -1,0 +1,29 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/03
+#=======================
+
+# redirecting input file descriptors
+
+exec 6<&0
+
+exec 0< testfile
+
+count=1
+while read line
+do
+	echo "Line #$count: $line"
+	count=$[ $count + 1 ]
+done
+exec 0<&6
+
+read -n 1 -p "Are you done now? (Y/n) " answer
+echo
+
+case $answer in
+	Y|y) echo "Goodbye"
+	;;
+    *) echo "Sorry, this is the end."
+	;;
+esac
