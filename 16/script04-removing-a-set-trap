@@ -1,0 +1,25 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/09
+#=======================
+
+# removing a set trap
+
+trap "echo ' Sorry... Ctrl-C is trapped.'" SIGINT
+
+for ((count = 1; count <= 5; count++))
+do
+	echo "Loop #$count"
+	sleep 1
+done
+
+# remove the trap
+trap -- SIGINT
+echo "I just removed the trap"
+
+for ((count = 1; count <= 5; count++))
+do
+	echo "Second Loop #$count"
+	sleep 1
+done

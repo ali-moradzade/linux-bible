@@ -1,0 +1,17 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/10
+#=======================
+
+# test job control
+
+echo "Script Process ID: $$"
+
+for ((count = 1; count <= 10; count++))
+do
+	echo "Loop #$count"
+	sleep 10
+done
+
+echo "End of script"

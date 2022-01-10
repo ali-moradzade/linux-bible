@@ -1,0 +1,12 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/10
+#=======================
+
+# test renning in the background
+
+for ((count= 1; count <= 10; count++))
+do
+	sleep 1
+done

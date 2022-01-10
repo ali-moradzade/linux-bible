@@ -1,0 +1,16 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/10
+#=======================
+
+# running in the background with output
+
+echo "Start the test script"
+for ((count = 1; count <= 5; count++))
+do
+	echo "Loop #$count"
+	sleep 5
+done
+
+echo "Test script is complete"
