@@ -60,7 +60,7 @@ do
 	title=$(echo "$title" | sed 's/BookmarkTitle: //')
 	level=$(echo "$level" | sed 's/BookmarkLevel: //')
 
-	echo -e "\t{\"title\": \"$title\", \"page\": \"$page\", \"level\": \"$level\"}"
+	echo -e "\t{\"title\": \"$title\", \"page\": $page, \"level\": $level}"
 done >> $temp_file
 
 # Link: https://stackoverflow.com/questions/35021524/how-can-i-add-a-comma-at-the-end-of-every-line-except-the-last-line/35021663
