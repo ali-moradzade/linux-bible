@@ -1,0 +1,12 @@
+<html>
+	<head>
+		<title>This is the page title</title>
+	</head>
+	<body>
+		<p>
+			This is the <b>first</b> line in the web page.
+			This should provide some <i>useful</i>
+			information to use in our sed script.
+		</p>
+	</body>
+</html>

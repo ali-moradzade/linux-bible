@@ -1,0 +1,12 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/22
+#=======================
+
+# reverse.sh
+# Shell warapper for sed editor script.
+#	to reverse text file line.
+
+sed -n '{1!G; h; $p}' $1
+
