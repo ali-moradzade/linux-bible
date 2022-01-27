@@ -1,0 +1,130 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/27
+#=======================
+
+# Delete_user - Automates the 4 steps to remve an account
+
+# =======================================================
+# define functions
+
+function get_answer {
+	unset ANSWER
+	ASK_COUNT=0
+
+	while [ -z "$ANSWER" ] # while no answer is given, keep asking
+	do
+		ASK_COUNT=$[ $ASK_COUNT + 1 ]
+
+		case $ASK_COUNT in
+			2)
+				echo
+				echo "Please answer the question."
+				echo
+				;;
+			3)
+				echo
+				echo "One last try...please answer the question."
+				echo
+				;;
+			4)
+				echo
+				echo "Since you refuse to answer the question..."
+				echo "exiting program."
+				echo
+
+				exit
+				;;
+		esac
+
+		echo
+
+		if [ -n "$LINE2" ]
+		then
+			echo $LINE1
+			echo -e $LINE2" \c"
+		else
+			echo -e $LINE1" \c"
+		fi
+
+		# allow 60 seconds to answer before time-out
+		read -t 60 ANSWER
+	done
+
+	# do a little variable clean-up
+	unset LINE1
+	unset LINE2
+}
+
+function process_answer {
+	case $ANSWER in
+		y|Y|yes|Yes|YES|YeS|YEs|yES|yeS)
+			# if user answers yes, do nothing
+		;;
+		*)
+			# if user answers anything but "yes", exit script
+			echo
+			echo $EXIT_LINE1
+			echo $EXIT_LINE2
+			echo
+			exit
+		;;
+	esac
+
+	# do a little variable clean-up
+	unset EXIT_LINE1
+	unset EXIT_LINE2
+}
+
+# =======================================================
+# main script
+
+# get name of user account to check
+echo "Step #1 - Determine User Account name to Delete"
+echo
+LINE1="Please enter the username of the user "
+LINE2="account you which to delete from system:"
+get_answer
+USER_ACCOUNT=$ANSWER
+
+# double check with script user that this is the correct User Account
+LINE1="Is $USER_ACCOUNT the user account "
+LINE2="you wish to delete from the system? [Y/n]"
+get_answer
+
+# call process_answer function:
+#	if user answers anything but "yes", exit script
+EXIT_LINE1="Beacause the account, $USER_ACCOUNT, is not "
+EXIT_LINE2="the one you wish to delete, we are leaving the script ..."
+process_answer
+
+# ==========================================================
+# check that USER_ACCOUNT is really an account on the system
+
+USER_ACCOUNT_RECORD=$(cat /etc/passwd | grep -w $USER_ACCOUNT)
+
+if [ $? -eq 1 ]
+then
+	echo
+	echo "Account, $USER_ACCOUNT, not found."
+	echo "Leaving the script ..."
+	echo
+	exit
+fi
+
+echo
+echo "I found this record."
+echo $USER_ACCOUNT_RECORD
+
+LINE1="Is this the correct User Account? [Y/n]"
+get_answer
+
+# call process_answer function:
+#	if user answers anything but "yes", exit script
+EXIT_LINE1="Because the account, $USER_ACCOUNT, is not "
+EXIT_LINE2="the one you wish to delete, we are leaving the script ..."
+process_answer
+
+# ================================================================
+# search for any running processes that belong to the User Account

@@ -1,0 +1,75 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/25
+#=======================
+
+# hourly archive - every hour create an archive
+# =============================================
+
+# set configuration file
+CONFIG_FILE=~/works/linux-bible/24/FILES-TO-BACKUP
+
+# set base archive destination location
+BASEDEST=~/works/linux-bible/24/hourly
+
+# gather current day, month & time
+DAY=$(date +%d)
+MONTH=$(date +%m)
+TIME=$(date +%k%M)
+
+# create archive destination directory
+mkdir -p $BASEDEST/$MONTH/$DAY
+
+# build archive destination file name
+DESTINATION=$BASEDEST/$MONTH/$DAY/archive$TIME.tar.gz
+
+# ======================================================
+# main script
+
+# check backup config file exists
+if [ -f $CONFIG_FILE ]
+then
+	echo
+else
+	echo
+	echo "$CONFIG_FILE does not exist."
+	echo "Backup not completed due to missing Configuration file."
+	echo
+	exit
+fi
+
+# build the names of all the files to backup
+FILE_NO=1
+exec < $CONFIG_FILE
+
+read FILE_NAME
+while [ $? -eq 0 ]
+do
+	# make sure the file or directory exists
+	if [ -f $FILE_NAME -o -d $FILE_NAME ]
+	then
+		FILE_LIST="$FILE_LIST $FILE_NAME"
+	else
+		echo
+		echo "$FILE_NAME, does not exist."
+		echo "Obviously, I will not include it in this archive."
+		echo "It is listed on line $FILE_NO of the config file."
+		echo "Continuing to build archive list ..."
+		echo
+	fi
+
+	FILE_NO=$[ $FILE_NO + 1 ]
+	read FILE_NAME
+done
+
+# ======================================================
+# backup the files and compress archive
+echo "Starting archive ..."
+echo
+
+tar -czf $DESTINATION $FILE_LIST 2> /dev/null
+
+echo "Archive completed"
+echo "Resulting archive file is: $DESTINATION"
+echo
