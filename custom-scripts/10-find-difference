@@ -1,0 +1,52 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/26
+#=======================
+
+# find files that differed between two commits
+# and collect them all in a new directory
+
+if [ $# -ne 3 ]
+then
+	echo "Usage: ./$(basename $0) [your-xv6-directory] [SHA1] [SHA2]"
+	exit
+fi
+
+if ! [ -d "$1" ]
+then
+	echo "directory does not exist. aborting ..."
+	exit
+fi
+
+directory=$1
+new_directory="$(basename $directory)-new"
+SHA1=$2
+SHA2=$3
+
+if [ -d "$new_directory" ]
+then
+	echo "directory $new_directory (destination directory that changed files go) exists. aborting ..."
+	exit
+fi
+
+echo "creating $new_directory ..."
+mkdir "$new_directory"
+
+cd "$directory"
+patch_file=$(git diff --name-only $SHA1 $SHA2)
+
+echo "moving changed files to $new_directory ..."
+for file in $patch_file
+do
+	if [ -f $file ]
+	then
+		echo "$file"
+		cp -i $file ../$new_directory 
+	fi
+done
+pwd
+
+echo
+echo "process finished successfully."
+echo "your changed files are in: $new_directory"
