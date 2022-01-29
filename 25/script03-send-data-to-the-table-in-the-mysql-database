@@ -1,0 +1,29 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/29
+#=======================
+
+# send data to the table in the mysql database
+
+MYSQL=$(which mysql)
+DB_NAME=mytest
+USER=ali
+
+if [ $# -ne 4 ]
+then
+	echo "Usage: ./script empid lastname firstname salary"
+else
+	statement="INSERT INTO employees VALUES ($1, '$2', '$3', '$4')"
+	$MYSQL $DB_NAME -u $USER << EOF
+$statement
+EOF
+
+	if [ $? -eq 0 ]
+	then
+		echo Data successfully added
+	else
+		echo Problem adding data
+	fi
+fi
+

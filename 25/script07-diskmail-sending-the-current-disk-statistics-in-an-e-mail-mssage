@@ -1,0 +1,15 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/29
+#=======================
+
+# diskmail sending the current disk statistics in an e mail mssage
+
+date=$(date +%Y/%m/%d)
+MAIL=(which mailx)
+TEMP=$(mktemp tmp.XXXXXX)
+
+df -k > $TEMP
+cat $TEMP | $MAIL -s "Disk state for $date" $1
+rm -f $TEMP

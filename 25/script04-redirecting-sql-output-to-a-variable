@@ -1,0 +1,18 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/29
+#=======================
+
+# redirecting sql output to a variable
+
+MYSQL=$(which mysql)
+USER=ali
+DB_NAME=mytest
+
+dbs=$($MYSQL $DB_NAME -u $USER -Bse 'show databases')
+for db in $dbs
+do
+	echo $db
+done
+

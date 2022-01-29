@@ -1,0 +1,19 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/29
+#=======================
+
+# extract the current weather for chicago
+
+URL="http://weather.yahoo.com/united-states/illinois/chicago-2379574/"
+LYNX=$(which lynx)
+TMPFILE=$(mktemp tempXXXXXX)
+
+$LYNX -dump $URL > $TMPFILE
+conditions=$(cat $TMPFILE | sed -n -f sedcond)
+temp=$(cat $TMPFILE | sed -n -f sedtemp | awk '{print $4}')
+rm -f $TMPFILE
+echo "Current conditions: $conditions"
+echo The current temp outside is: $temp
+

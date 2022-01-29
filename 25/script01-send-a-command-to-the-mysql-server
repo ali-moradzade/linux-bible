@@ -1,0 +1,14 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/29
+#=======================
+
+# send a command to the mysql server
+
+MYSQL=$(which mysql)
+DATABASE_NAME=mytest
+USER_NAME=ali
+
+$MYSQL $DATABASE_NAME -u $USER_NAME -e 'select * from employees'
+
