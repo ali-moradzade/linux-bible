@@ -1,0 +1,126 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/01/30
+#=======================
+
+#script
+
+TEMP=$(mktemp temp.XXXXX)
+exec 3>&1
+exec 1>$TEMP
+
+cat <<EOF
+<background>
+  <starttime>
+    <year>2020</year>
+    <month>04</month>
+    <day>01</day>
+    <hour>00</hour>
+    <minute>00</minute>
+    <second>00</second>
+  </starttime>
+  <!-- This animation will start at midnight. -->
+EOF
+
+prev=""
+first=""
+last=""
+
+for image in /usr/share/backgrounds/*.jpg /usr/share/backgrounds/*.png
+do
+	if [ "$first" = "" ]
+	then
+		first="$image"
+	fi
+
+	if [ "$prev" = "" ]
+	then
+		prev="$image"
+		continue
+	fi
+
+	echo -e "\t<static><duration>1795.0</duration><file>$prev</file></static>"
+	echo -e "\t<transition><duration>5.0</duration><from>$prev</from><to>$image</to></transition>"
+	echo
+	prev="$image"
+	last="$image"
+done 
+
+echo -e "\t<static><duration>1795.0</duration><file>$last</file></static>"
+echo -e "\t<transition><duration>5.0</duration><from>$last</from><to>$first</to></transition>"
+
+cat <<EOF
+</background>
+EOF
+
+exec 1>&3
+
+xmllint --format $TEMP
+rm $TEMP
+
+# <background>
+#   <starttime>
+#     <year>2020</year>
+#     <month>04</month>
+#     <day>01</day>
+#     <hour>00</hour>
+#     <minute>00</minute>
+#     <second>00</second>
+#   </starttime>
+#   <!-- This animation will start at midnight. -->
+#   <static>
+#     <duration>1795.0</duration>
+#     <file>/usr/share/backgrounds/Focal-Fossa_WP_4096x2304_GREY.png</file>
+#   </static>
+#   <transition>
+#     <duration>5.0</duration>
+#     <from>/usr/share/backgrounds/Focal-Fossa_WP_4096x2304_GREY.png</from>
+#     <to>/usr/share/backgrounds/brad-huchteman-stone-mountain.jpg</to>
+#   </transition>
+#   <static>
+#     <duration>1795.0</duration>
+#     <file>/usr/share/backgrounds/brad-huchteman-stone-mountain.jpg</file>
+#   </static>
+#   <transition>
+#     <duration>5.0</duration>
+#     <from>/usr/share/backgrounds/brad-huchteman-stone-mountain.jpg</from>
+#     <to>/usr/share/backgrounds/joshua-coleman-something-yellow.jpg</to>
+#   </transition>
+#   <static>
+#     <duration>1795.0</duration>
+#     <file>/usr/share/backgrounds/joshua-coleman-something-yellow.jpg</file>
+#   </static>
+#   <transition>
+#     <duration>5.0</duration>
+#     <from>/usr/share/backgrounds/joshua-coleman-something-yellow.jpg</from>
+#     <to>/usr/share/backgrounds/matt-mcnulty-nyc-2nd-ave.jpg</to>
+#   </transition>
+#   <static>
+#     <duration>1795.0</duration>
+#     <file>/usr/share/backgrounds/matt-mcnulty-nyc-2nd-ave.jpg</file>
+#   </static>
+#   <transition>
+#     <duration>5.0</duration>
+#     <from>/usr/share/backgrounds/matt-mcnulty-nyc-2nd-ave.jpg</from>
+#     <to>/usr/share/backgrounds/ryan-stone-skykomish-river.jpg</to>
+#   </transition>
+#   <static>
+#     <duration>1795.0</duration>
+#     <file>/usr/share/backgrounds/ryan-stone-skykomish-river.jpg</file>
+#   </static>
+#   <transition>
+#     <duration>5.0</duration>
+#     <from>/usr/share/backgrounds/ryan-stone-skykomish-river.jpg</from>
+#     <to>/usr/share/backgrounds/hardy_wallpaper_uhd.png</to>
+#   </transition>
+#   <static>
+#     <duration>1795.0</duration>
+#     <file>/usr/share/backgrounds/hardy_wallpaper_uhd.png</file>
+#   </static>
+#   <transition>
+#     <duration>5.0</duration>
+#     <from>/usr/share/backgrounds/hardy_wallpaper_uhd.png</from>
+#     <to>/usr/share/backgrounds/Focal-Fossa_WP_4096x2304_GREY.png</to>
+#   </transition>
+# </background>
