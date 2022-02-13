@@ -1,0 +1,28 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/02/13
+#=======================
+
+#13 snap progress bar
+
+time=0.5
+for ((i = 1; i < 100; i++))
+do
+	echo -en "|\r"
+	sleep $time
+	echo -en "/\r"
+	sleep $time
+	echo -en "-\r"
+	sleep $time
+	printf '\\\r'
+	sleep $time
+	echo -en "|\r"
+	sleep $time
+	echo -en "/\r"
+	sleep $time
+	echo -en "-\r"
+	sleep $time
+	printf '\\\r'
+	sleep $time
+done

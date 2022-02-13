@@ -1,0 +1,22 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/02/01
+#=======================
+
+# print heading
+
+function heading {
+	character="$1"
+	number="$2"
+
+	perl -le "print '$character' x $number"
+}
+
+if [ $# -ne 2 ]
+then
+	echo "Usage: ./script [heading-char] [number-of-time]"
+	exit 1
+fi
+
+heading "$1" "$2"

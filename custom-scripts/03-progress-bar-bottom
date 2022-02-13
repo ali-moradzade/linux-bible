@@ -35,19 +35,11 @@ NC='\033[0m' # No Color
 
 for ((i = 1; i <= 100; i++))
 do
-	progress=""
 	count=$[ $i * $BAR_WIDTH / 100 ]
-	while [ ${#progress} -le $count ]
-	do
-		progress="$progress$PROGRESS_CHAR"
-	done
+	progress=$(perl -e "print '$PROGRESS_CHAR' x $count")
 
-	remaining=""
 	remaining_width=$[ $BAR_WIDTH - ${#progress} ]
-	while [ ${#remaining} -lt $remaining_width ]
-	do
-		remaining="$remaining$REMAINING_CHAR"
-	done
+	remaining=$(perl -e "print '$REMAINING_CHAR' x $remaining_width")
 
     ## Gets terminal width and height
     height=$(tput lines)
