@@ -1,0 +1,17 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/09/04
+#=======================
+
+#stan
+
+count=1
+for f in *.mp4
+do
+	if [ -f "$f" ]
+	then
+		rename "s/^(\d+)/sprintf('%02d', '$count')/e" "$f"
+		((count++))
+	fi
+done

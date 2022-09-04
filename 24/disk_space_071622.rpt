@@ -1,0 +1,17 @@
+Top Ten Disk Space Usage
+for  /var/log /home Directories
+
+The /var/log Directory:
+1:	4	/var/log
+
+The /home Directory:
+1:	11633644	/home/ali/Downloads/Telegram
+2:	10161104	/home/ali/d-drive/ce-aut/06/machine-learning/zip-files
+3:	7637528	/home/ali/Downloads/Telegram
+4:	6770512	/home/ali/d-drive/software/software1/circuit/Xilinx
+5:	6502928	/home/ali/d-drive/ce-aut/06/deep-learning/complete-tensorflow-2-and-keras-deep-learning-bootcamp-2020/zip-files
+6:	6371072	/home/ali/d-drive/software/software1/circuit/Xilinx
+7:	6185440	/home/ali/d-drive/software/software2/office
+8:	4638052	/home/ali/Documents/summer-06-07/node.js/33-react.js
+9:	4611236	/home/ali/Downloads/Compressed
+10:	3901644	/home/ali/Documents/summer-06-07/node.js/40-optional-module-ask-angela-anything
