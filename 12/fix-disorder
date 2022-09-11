@@ -1,0 +1,19 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2021/12/30
+#=======================
+
+# if you have mistake in ordering (for example if you have two script13-.. files)
+# use this script to correct all the files.
+
+count=1
+for f in *
+do
+	if [[ $f =~ ^script[0-9][1-9]* ]]
+	then
+		echo "$f"
+		mv -i "$f" "$(printf "script%02d%s" $count ${f:8})"
+		((count++))
+	fi
+done
