@@ -1,6 +1,0 @@
-#!/bin/bash
-# Author: Ali Moradzade
-
-# copy the /usr/bin directory listing to a log file
-today=$(date +%0Y%0m%0d)
-ls /usr/bin -al > log.$today

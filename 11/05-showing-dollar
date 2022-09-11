@@ -1,5 +1,0 @@
-#!/bin/bash
-# Author: Ali Moradzade
-
-echo "The cost of the item is $15"
-echo "The cost of the item is \$15"

@@ -1,5 +1,0 @@
-#!/bin/bash
-# Author: Ali Moradzade
-
-testing=$(date)
-echo "The date and time are:" $testing
