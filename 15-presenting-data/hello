@@ -1,0 +1,16 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/09/12
+#=======================
+
+#hello
+
+> file
+for f in *
+do
+	if [ -f "$f" ] && [ -x "$f" ] && [ "$f" != "hello" ]
+	then
+		cat "$f" >> file
+	fi
+done
