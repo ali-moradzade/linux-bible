@@ -1,0 +1,36 @@
+#!/bin/bash
+#=======================
+# Author : Ali Moradzade
+# Created: 2022/09/18
+#=======================
+
+# Convert to png under 256kbyte
+# This script uses the find, find -exec, mogrify commands
+
+find . -name "*.jpg" -exec mogrify -format png {} \;
+if ! [ -d "jpg.back" ]
+then
+	mkdir jpg.back
+	mv *.jpg jpg.back
+else
+	read -n 1 -p "jpg.back directory already exists. do you want to continue? " reply
+	echo
+
+	case "$reply" in
+		y|Y)
+			mv -f *.jpg jpg.back
+			;;
+		*)
+			echo "Quitting .."
+			exit
+			;;
+	esac
+fi
+
+# 500 is almost results in less than 256kbyte
+mogrify -resize 500x *.png
+
+# If any of our files, is still greater than 256kB, reduce its size
+find . -maxdepth 1 -name '*.png' -size +256k -exec mogrify -resize 400x {} \;
+echo "Done! (backup of jpegs is available under jpg.back)"
+
